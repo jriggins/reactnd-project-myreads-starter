@@ -4,23 +4,23 @@ Project Rubric: https://review.udacity.com/#!/rubrics/918/view
 
 1. UI Skeleton
     1. Main
-        1. Factor out book to component
-        1. Factor Shelf
-            1. Currently Reading Shelf
-            1. Want to Read Shelf
-            1. Read Shelf
+        1. ~~Factor out book to component~~
+        1. ~~Factor Shelf~~
+            1. ~~Currently Reading Shelf~~
+            1. ~~Want to Read Shelf~~
+            1. ~~Read Shelf~~
     1. Search
         1. Use Router
         1. / for main page (be sure to use 'exact' here)
         1. /search for search page
 1. Behavior
     1. Main
-        1. Get list of books from API
-        1. Convert book JSON to Book Component
-        1. Filter list to Currently Reading
-        1. Filter list to Want to Read
-        1. Filter list to Read
-        1. Sync book context menu and shelf value
+        1. ~~Get list of books from API~~
+        1. ~~Convert book JSON to Book Component~~
+        1. ~~Filter list to Currently Reading~~
+        1. ~~Filter list to Want to Read~~
+        1. ~~Filter list to Read~~
+        1. ~~Sync book context menu and shelf value~~
         1. Ensure information is persisted between browser refreshes
     1. Search
         1. incremental
