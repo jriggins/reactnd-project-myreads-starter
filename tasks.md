@@ -10,9 +10,9 @@ Project Rubric: https://review.udacity.com/#!/rubrics/918/view
             1. ~~Want to Read Shelf~~
             1. ~~Read Shelf~~
     1. Search
-        1. Use Router
-        1. / for main page (be sure to use 'exact' here)
-        1. /search for search page
+        1. ~~Use Router~~
+        1. ~~/ for main page (be sure to use 'exact' here)~~
+        1. ~~/search for search page~~
 1. Behavior
     1. Main
         1. ~~Get list of books from API~~
