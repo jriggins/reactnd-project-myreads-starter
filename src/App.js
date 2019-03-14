@@ -7,31 +7,34 @@ import Search from './Search.js'
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
+    myBooks: {},
     booksFromSearch: [],
-    myBooks: [],
     query: '',
   }
 
   componentDidMount() {
     this.getMyBooks()
-      .then(this.setBooksStateFromServer)
   }
 
   getMyBooks = () => {
     return BooksApi.getAll()
-      .then(this.fromJsonToBook)
+      .then(this.mapResultsToBooks)
+      .then(this.setMyBooksState)
   }
 
-  getAllBooksFromSearch = (query) => {
+  mapMyBooksIntoSearchResults = (books) => (
+    books.map((book) => this.state.myBooks[book.id] || book)
+  )
+
+  findBooks = (query) => {
     return BooksApi.search(query)
-      .then(this.fromJsonToBook)
-      .then((books) => books.map((book) => this.state.myBooks[book.id] || book))
+      .then(this.mapResultsToBooks)
+      .then(this.mapMyBooksIntoSearchResults)
   }
 
   onSearchRequested = (query) => {
     this.setState({query: query})
-    this.getAllBooksFromSearch(query)
+    this.findBooks(query)
       .then(this.updateBookFromSearch)
   }
 
@@ -39,18 +42,17 @@ class BooksApp extends React.Component {
     this.setState({booksFromSearch})
   }
 
-  fromJsonToBook = (books) => {
+  mapResultsToBooks = (books) => {
     books = (books && !books.error) ? books : []
     return books.filter((book) => book.imageLinks !== undefined).map(this.getCoverUrlFrom)
   }
 
   getCoverUrlFrom = (book) => ({...book, coverUrl: book.imageLinks.thumbnail})
 
-  setBooksStateFromServer = (books) => this.setState({books, myBooks: this.getMyBooksFromList(books)})
+  setMyBooksState = (books) => this.setState({books, myBooks: this.getMyBooksFromList(books)})
 
   updateBookState = (updatedBook) => {
     this.setState((prevState) => ({
-      books: [...prevState.books.filter((book) => book.id !== updatedBook.id), updatedBook],
       myBooks: {...prevState.myBooks, [updatedBook.id]: updatedBook},
       booksFromSearch: prevState.booksFromSearch.map((book) => prevState.myBooks[book.id] || book)
     }))
@@ -73,7 +75,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route exact path="/" render={() => <Home books={this.state.books} onBookshelfChange={this.onBookshelfChange}/>}/>
+        <Route exact path="/" render={() => <Home books={this.state.myBooks} onBookshelfChange={this.onBookshelfChange}/>}/>
         <Route exact path="/search" render={() => <Search books={this.state.booksFromSearch}
                                                           query={this.state.query}
                                                           onSearchRequested={this.onSearchRequested}
