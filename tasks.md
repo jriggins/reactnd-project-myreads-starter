@@ -35,3 +35,4 @@ Project Rubric: https://review.udacity.com/#!/rubrics/918/view
         1. Make sure there are no errors or warnings in console
         1. Use setState wisely. Pass state from parents down
         1. Break out into components
+        1. Add PropTypes

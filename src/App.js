@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import './App.css'
 import * as BooksApi from './BooksAPI.js'
 import Home from './Home.js'
@@ -26,10 +26,28 @@ class BooksApp extends React.Component {
     this.getAllBooks()
   }
 
+  updateBookState = (updatedBook) => {
+    this.setState((prevState) => ({
+      books: [...prevState.books.filter((book) => book.id !== updatedBook.id), updatedBook]
+    }))
+  }
+
+  updateBookshelf = (updatedBook) => {
+    return BooksApi
+      .update(updatedBook, updatedBook.shelf)
+      .then(() => updatedBook)
+  }
+
+  onBookshelfChange = (updatedBook) => {
+    this
+      .updateBookshelf(updatedBook)
+      .then(this.updateBookState)
+  }
+
   render() {
     return (
       <div className="app">
-        <Route exact path="/" render={() => <Home books={this.state.books}/>}/>
+        <Route exact path="/" render={() => <Home books={this.state.books} onBookshelfChange={this.onBookshelfChange}/>}/>
         <Route exact path="/search" render={() => <Search/>}/>
       </div>
     )
