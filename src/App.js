@@ -30,15 +30,15 @@ class BooksApp extends React.Component {
     return BooksApi.search(query)
       .then(this.mapResultsToBooks)
       .then(this.mapMyBooksIntoSearchResults)
+      .then(this.setBooksFromSearchState)
   }
 
   onSearchRequested = (query) => {
     this.setState({query: query})
     this.findBooks(query)
-      .then(this.updateBookFromSearch)
   }
 
-  updateBookFromSearch = (booksFromSearch) => {
+  setBooksFromSearchState = (booksFromSearch) => {
     this.setState({booksFromSearch})
   }
 
@@ -70,6 +70,7 @@ class BooksApp extends React.Component {
     this
       .updateBookshelf(updatedBook)
       .then(this.updateBookState)
+      .then(() => this.findBooks(this.state.query))
   }
 
   render() {

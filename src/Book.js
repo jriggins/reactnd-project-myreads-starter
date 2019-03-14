@@ -4,7 +4,7 @@ export default function Book({book, onBookshelfChange}) {
   const updateBookshelf = (book, shelf) => Object.assign({}, book, {shelf})
   const getSelectedBookshelf = (event) => event.target.value
   const onBookshelfSelectChange = (event) => onBookshelfChange(updateBookshelf(book, getSelectedBookshelf(event)))
-  const {title, author, coverUrl, shelf} = book
+  const {title, author, coverUrl, shelf = "none"} = book
 
   return (
     <div className="book">
