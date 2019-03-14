@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Bookshelf from './Bookshelf.js'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Bookshelf from './Bookshelf.js';
 
 export default function Home({books, onBookshelfChange}) {
   return (
@@ -19,6 +19,6 @@ export default function Home({books, onBookshelfChange}) {
         </Link>
       </div>
     </div>
-  )
+  );
 }
 

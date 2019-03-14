@@ -1,7 +1,11 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Book from './Book.js';
 
-export default function Search() {
+export default function Search({query, books, onSearchRequested, onBookshelfChange}) {
+  const getQueryFromEvent = (event) => event.target.value;
+  const onSearchQueryTextChange = (event) => onSearchRequested(getQueryFromEvent(event));
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -17,13 +21,19 @@ export default function Search() {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-          <input type="text" placeholder="Search by title or author"/>
+          <input type="text" placeholder="Search by title or author" value={query} onChange={onSearchQueryTextChange}/>
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+        <ol className="books-grid">
+          {Object.values(books).map((book) => (
+            <li key={book.id}>
+              <Book book={book} onBookshelfChange={onBookshelfChange}/>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
-  )
+  );
 }
 

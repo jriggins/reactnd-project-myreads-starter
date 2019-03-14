@@ -1,5 +1,5 @@
-import React from 'react'
-import Shelf from './Shelf.js'
+import React from 'react';
+import Shelf from './Shelf.js';
 
 export default function Bookshelf({books, onBookshelfChange}) {
   return (
@@ -10,6 +10,6 @@ export default function Bookshelf({books, onBookshelfChange}) {
         <Shelf id="read" name="Read" books={books} onBookshelfChange={onBookshelfChange}/>
       </div>
     </div>
-  )
+  );
 }
 

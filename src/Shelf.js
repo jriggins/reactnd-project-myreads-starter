@@ -1,8 +1,8 @@
-import React from 'react'
-import Book from './Book.js'
+import React from 'react';
+import Book from './Book.js';
 
 function booksByShelf(books, shelfId) {
-  return books.filter((book) => book.shelf === shelfId)
+  return Object.values(books).filter((book) => book.shelf === shelfId);
 }
 
 export default function Shelf({id, name, books, onBookshelfChange}) {
@@ -19,5 +19,5 @@ export default function Shelf({id, name, books, onBookshelfChange}) {
         </ol>
       </div>
     </div>
-  )
+  );
 }

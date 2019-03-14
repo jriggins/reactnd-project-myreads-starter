@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 export default function Book({book, onBookshelfChange}) {
-  const updateBookshelf = (book, shelf) => Object.assign({}, book, {shelf})
-  const getSelectedBookshelf = (event) => event.target.value
-  const onBookshelfSelectChange = (event) => onBookshelfChange(updateBookshelf(book, getSelectedBookshelf(event)))
-  const {title, author, coverUrl, shelf} = book
+  const updateBookshelf = (book, shelf) => Object.assign({}, book, {shelf});
+  const getSelectedBookshelf = (event) => event.target.value;
+  const onBookshelfSelectChange = (event) => onBookshelfChange(updateBookshelf(book, getSelectedBookshelf(event)));
+  const {title, author, coverUrl, shelf = 'none'} = book;
 
   return (
     <div className="book">
@@ -23,5 +23,5 @@ export default function Book({book, onBookshelfChange}) {
       <div className="book-title">{title}</div>
       <div className="book-authors">{author}</div>
     </div>
-  )
+  );
 }
