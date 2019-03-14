@@ -1,23 +1,15 @@
 import React from 'react'
-import Book from './Book.js'
+import Shelf from './Shelf.js'
 
-function booksByShelf(books, shelfId) {
-  return books.filter((book) => book.shelf === shelfId)
-}
-
-export default function Bookshelf({id, name, books, onBookshelfChange}) {
+export default function Bookshelf({books, onBookshelfChange}) {
   return (
-    <div className="bookshelf">
-      <h2 className="bookshelf-title">{name}</h2>
-      <div className="bookshelf-books">
-        <ol className="books-grid">
-          {booksByShelf(books, id).map((book) => (
-            <li key={book.id}>
-              <Book book={book} onBookshelfChange={onBookshelfChange}/>
-            </li>
-          ))}
-        </ol>
+    <div className="list-books-content">
+      <div>
+        <Shelf id="currentlyReading" name="Currently Reading" books={books} onBookshelfChange={onBookshelfChange}/>
+        <Shelf id="wantToRead" name="Want to Read" books={books} onBookshelfChange={onBookshelfChange}/>
+        <Shelf id="read" name="Read" books={books} onBookshelfChange={onBookshelfChange}/>
       </div>
     </div>
   )
 }
+

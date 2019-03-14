@@ -10,9 +10,7 @@ export default function Home({books, onBookshelfChange}) {
       </div>
       <div className="list-books-content">
         <div>
-          <Bookshelf id="currentlyReading" name="Currently Reading" books={books} onBookshelfChange={onBookshelfChange}/>
-          <Bookshelf id="wantToRead" name="Want to Read" books={books} onBookshelfChange={onBookshelfChange}/>
-          <Bookshelf id="read" name="Read" books={books} onBookshelfChange={onBookshelfChange}/>
+          <Bookshelf books={books} onBookshelfChange={onBookshelfChange}/>
         </div>
       </div>
       <div className="open-search">

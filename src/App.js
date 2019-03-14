@@ -10,21 +10,21 @@ class BooksApp extends React.Component {
     books: [],
   }
 
-  mapBookJsonToBook = (books) => (books.map(this.getCoverUrlFrom))
+  componentDidMount() {
+    this.getAllBooksFromServer()
+      .then(this.setBooksStateFromServer)
+  }
 
-  setStateWithBooks = (books) => (this.setState({books}))
+  getAllBooksFromServer = () => {
+    return BooksApi.getAll()
+      .then(this.fromJsonToBook)
+  }
+
+  fromJsonToBook = (books) => books.map(this.getCoverUrlFrom)
 
   getCoverUrlFrom = (book) => ({...book, coverUrl: book.imageLinks.thumbnail})
 
-  getAllBooks = () => {
-    return BooksApi.getAll()
-      .then(this.mapBookJsonToBook)
-      .then(this.setStateWithBooks)
-  }
-
-  componentDidMount() {
-    this.getAllBooks()
-  }
+  setBooksStateFromServer = (books) => this.setState({books})
 
   updateBookState = (updatedBook) => {
     this.setState((prevState) => ({
