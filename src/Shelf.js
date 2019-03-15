@@ -1,11 +1,10 @@
 import React from 'react';
 import Book from './Book.js';
-
-function booksByShelf(books, shelfId) {
-  return Object.values(books).filter((book) => book.shelf === shelfId);
-}
+import PropTypes from 'prop-types';
 
 export default function Shelf({id, name, books, onBookshelfChange}) {
+  const booksByShelf = (books, shelfId) => Object.values(books).filter((book) => book.shelf === shelfId);
+
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{name}</h2>
@@ -21,3 +20,10 @@ export default function Shelf({id, name, books, onBookshelfChange}) {
     </div>
   );
 }
+
+Shelf.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  books: PropTypes.object.isRequired,
+  onBookshelfChange: PropTypes.func.isRequired
+};

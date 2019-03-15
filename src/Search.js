@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book.js';
+import PropTypes from 'prop-types';
 
 export default function Search({query, books, onSearchRequested, onBookshelfChange}) {
   const getQueryFromEvent = (event) => event.target.value;
   const onSearchQueryTextChange = (event) => onSearchRequested(getQueryFromEvent(event));
+  const booksFromSearch = (books) => Object.values(books);
 
   return (
     <div className="search-books">
@@ -26,7 +28,7 @@ export default function Search({query, books, onSearchRequested, onBookshelfChan
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {Object.values(books).map((book) => (
+          {booksFromSearch(books).map((book) => (
             <li key={book.id}>
               <Book book={book} onBookshelfChange={onBookshelfChange}/>
             </li>
@@ -36,4 +38,11 @@ export default function Search({query, books, onSearchRequested, onBookshelfChan
     </div>
   );
 }
+
+Search.propTypes = {
+  query: PropTypes.string.isRequired,
+  books: PropTypes.object.isRequired,
+  onSearchRequested: PropTypes.func.isRequired,
+  onBookshelfChange: PropTypes.func.isRequired
+};
 

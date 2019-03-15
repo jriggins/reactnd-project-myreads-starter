@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function Book({book, onBookshelfChange}) {
   const updateBookshelf = (book, shelf) => Object.assign({}, book, {shelf});
@@ -25,3 +26,8 @@ export default function Book({book, onBookshelfChange}) {
     </div>
   );
 }
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  onBookshelfChange: PropTypes.func.isRequired
+};

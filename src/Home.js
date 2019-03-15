@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Bookshelf from './Bookshelf.js';
+import PropTypes from 'prop-types';
 
 export default function Home({books, onBookshelfChange}) {
   return (
@@ -22,3 +23,7 @@ export default function Home({books, onBookshelfChange}) {
   );
 }
 
+Home.propTypes = {
+  books: PropTypes.object.isRequired,
+  onBookshelfChange: PropTypes.func.isRequired
+};

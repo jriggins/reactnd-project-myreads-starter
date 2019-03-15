@@ -39,7 +39,7 @@ class BooksApp extends React.Component {
   }
 
   mapListToObject = (list) => {
-    return list.reduce((obj, item) => Object.assign(obj, {[item.id]: item}), {})
+    return list.reduce((obj, item) => Object.assign(obj, {[item.id]: item}), {});
   }
 
   setBooksFromSearchState = (books) => {
@@ -60,50 +60,48 @@ class BooksApp extends React.Component {
   }
 
   setMyBooksState = (books) => {
-    this.setState({books, myBooks: this.getMyBooksFromList(books)});
+    this.setState({books, myBooks: this.mapListToObject(books)});
   }
 
-  updateBookState = (updatedBook) => {
+  updateMyBooksState = (updatedBook) => {
     this.setState((prevState) => ({
       myBooks: {...prevState.myBooks, [updatedBook.id]: updatedBook},
     }));
   }
 
-  updateBooksFromSearch = (updatedBook) => {
+  updateMyBooksInSearchResults = (updatedBook) => {
     if (updatedBook.id in this.state.booksFromSearch) {
       this.setState((prevState) => ({
         booksFromSearch: {...prevState.booksFromSearch, [updatedBook.id]: updatedBook},
       }));
-    };
+    }
   }
 
-  getMyBooksFromList = (books) => {
-    return this.mapListToObject(books);
-  }
-
-  updateBookshelf = (updatedBook) => {
+  updateBookshelfAtServer = (updatedBook) => {
     return BooksApi
       .update(updatedBook, updatedBook.shelf)
       .then(() => updatedBook);
   }
 
   onBookshelfChange = (updatedBook) => {
-    this.updateBookState(updatedBook);
-    this.updateBooksFromSearch(updatedBook);
-    this.updateBookshelf(updatedBook);
+    this.updateMyBooksState(updatedBook);
+    this.updateMyBooksInSearchResults(updatedBook);
+    this.updateBookshelfAtServer(updatedBook);
   }
 
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => <Home books={this.state.myBooks} onBookshelfChange={this.onBookshelfChange}/>}/>
-        <Route exact path="/search" render={() => <Search books={this.state.booksFromSearch}
-                                                          query={this.state.query}
-                                                          onSearchRequested={this.onSearchRequested}
-                                                          onBookshelfChange={this.onBookshelfChange}/>}/>
+        <Route exact path="/search" render={() =>
+          <Search books={this.state.booksFromSearch}
+                  query={this.state.query}
+                  onSearchRequested={this.onSearchRequested}
+                  onBookshelfChange={this.onBookshelfChange}/>}
+        />
       </div>
     );
   }
 }
 
-export default BooksApp
+export default BooksApp;
